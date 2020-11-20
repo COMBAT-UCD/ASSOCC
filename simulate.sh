@@ -1,9 +1,16 @@
 #!/bin/sh
 
-echo Running ASSOCC Model Simulation - $1
+EXP=$1
+CORES=$2
+if [ $# -ne 2 ]; then
+    CORES=1
+fi
+
+echo "Running ASSOCC Model Simulation - $EXP ($CORES threads)"
 
 /usr/lib/netlogo/netlogo-headless.sh \
   --model /var/model/simulation_model/covid-sim.nlogo \
-  --setup-file /var/model/data/experiments.xml  \
-  --experiment $1 \
-  --table /var/model/results/$1.csv
+  --setup-file /var/model/data/experiments.xml \
+  --threads $CORES \
+  --experiment $EXP \
+  --table /var/model/results/$EXP.csv

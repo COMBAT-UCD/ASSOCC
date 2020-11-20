@@ -14,6 +14,8 @@ RUN mkdir /usr/lib/netlogo \
  && tar xzf $NETLOGO_NAME-64.tgz -C /usr/lib/netlogo --strip-components=1 \
  && rm $NETLOGO_NAME-64.tgz 
 
+RUN sed -i 's/-Xmx1024m/-Xmx4096m/g' /usr/lib/netlogo/netlogo-headless.sh
+
 RUN mkdir -p /var/model
 
 VOLUME [ "/var/model/results", "/var/model/data" ]
