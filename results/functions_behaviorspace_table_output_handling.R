@@ -29,9 +29,9 @@ cleanData <- function(p_df, p_infected_max_below_remove) {
   print(paste("Removing runs that are invalid: infected <",p_infected_max_below_remove))
   for(i in 1:max(p_df$X.run.number.)) {
     # 2) get maximum number of infected and compare with infected_max_below_remove
-    if (max(p_df[p_df$X.run.number.==i, ]$count.people.with..is.infected..) < p_infected_max_below_remove) {
+    if (max(p_df[p_df$X.run.number.==i, ]$X.infected) < p_infected_max_below_remove) {
       p_clean_df <- p_clean_df[p_clean_df$X.run.number!=i, ]
-      print(paste(".. removed run", i, ", infected ", max(p_df[p_df$X.run.number.==i, ]$count.people.with..is.infected..), "<", p_infected_max_below_remove))
+      print(paste(".. removed run", i, ", infected ", max(p_df[p_df$X.run.number.==i, ]$X.infected), "<", p_infected_max_below_remove))
       r_removed <- r_removed + 1
     }
   }

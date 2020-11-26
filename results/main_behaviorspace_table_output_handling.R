@@ -57,7 +57,8 @@ new_variable_names <- list(
   "r0"
 )
 
-clean_df <- changeColumnNames(df, new_variable_names)
+clean_df <- df
+# changeColumnNames(df, new_variable_names)
 
 # TRANSFORM DATAFRAME -----------------------------------------------------
 
@@ -65,7 +66,7 @@ clean_df <- changeColumnNames(df, new_variable_names)
 ### MANUAL INPUT: make sure that you specify which variables are to be considered as metrics (i.e. dependent variables)
 #As can be seen in clean_df, the dependent variables are (by default) called "infected", "aware_of_infected" and "tests_performed" ...
 #...therefore the dataframe transformation revolves around pivoting infected:tests_performed 
-df_long <- gather(clean_df, variable, measurement, infected:tests_performed)
+df_long <- gather(clean_df, variable, measurement, X.infected:X.tests.performed)
 
 # SPECIFY VARIABLE MEASUREMENT SCALES -----------------------------------------------------
 ### MANUAL INPUT: in order for ggplot and plotly to work, one must specify the following: ###
@@ -80,14 +81,14 @@ df_long$measurement <- as.numeric(df_long$measurement)
 #round 'measurement' variable to 4 decimals
 df_long$measurement <- round(df_long$measurement, 4)
 #convert categorical variables to factors (as to avoid ggplot errors)
-df_long$run_number <- as.factor(df_long$run_number)
-df_long$app_user_ratio <- as.factor(df_long$app_user_ratio)
+df_long$X.run.number. <- as.factor(df_long$X.run.number.)
+df_long$ratio.of.people.using.the.tracking.app <- as.factor(df_long$ratio.of.people.using.the.tracking.app)
 df_long$variable <- as.factor(df_long$variable)
 #perform some small checks to see whether everything is OK
 str(df_long)
 
 # PLOTTING -----------------------------------------------------
-clean_df$app_user_ratio <- as.factor(clean_df$app_user_ratio)
+clean_df$ratio.of.people.using.the.tracking.app <- as.factor(clean_df$ratio.of.people.using.the.tracking.app)
 
 export_pdf = TRUE;
 if (export_pdf) {
@@ -96,12 +97,12 @@ if (export_pdf) {
 }
 
 #infected plot with trendline
-ggplot(clean_df, aes(x=tick, y=infected, fill=app_user_ratio)) +
+ggplot(clean_df, aes(x=X.step., y=X.infected, fill=ratio.of.people.using.the.tracking.app)) +
   # geom_point(size = 1, alpha = 0) +
-  geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
-  geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
-  scale_fill_manual(values=c("red1","gray10")) +
-  scale_colour_manual(values=c("red1","gray10")) +
+  geom_line(size=0.75,alpha=0.35,aes(group=X.run.number., color=ratio.of.people.using.the.tracking.app, linetype=ratio.of.people.using.the.tracking.app)) +
+  geom_smooth(aes(color = ratio.of.people.using.the.tracking.app, linetype=ratio.of.people.using.the.tracking.app),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
+  #scale_fill_manual(values=c("red1","gray10")) +
+  #scale_colour_manual(values=c("red1","gray10")) +
   xlim(0, 500) + 
   ylim(0, 700) +
   #aesthetics for the legend
@@ -114,14 +115,14 @@ ggplot(clean_df, aes(x=tick, y=infected, fill=app_user_ratio)) +
   theme_bw()
 
 #aware_of_infected plot with trendline
-ggplot(clean_df, aes(x=tick, y=dead, fill=app_user_ratio)) +
+ggplot(clean_df, aes(x=X.step., y=X.dead.people, fill=ratio.of.people.using.the.tracking.app)) +
   # geom_point(size = 1, alpha = 0) +
-  geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
-  geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
-  scale_fill_manual(values=c("orange1","gray10")) +
-  scale_colour_manual(values=c("orange1","gray10")) +
+  geom_line(size=0.75,alpha=0.35,aes(group=X.run.number., color=ratio.of.people.using.the.tracking.app, linetype=ratio.of.people.using.the.tracking.app)) +
+  geom_smooth(aes(color = ratio.of.people.using.the.tracking.app, linetype=ratio.of.people.using.the.tracking.app),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
+#  scale_fill_manual(values=c("orange1","gray10")) +
+#  scale_colour_manual(values=c("orange1","gray10")) +
   xlim(0, 500) + 
-  ylim(0, 700) +
+  ylim(0, 100) +
   #aesthetics for the legend
   guides(colour = guide_legend(override.aes = list(size=5, alpha=1))) +
   xlab("Ticks [4 ticks = 1 day]") +
@@ -132,13 +133,13 @@ ggplot(clean_df, aes(x=tick, y=dead, fill=app_user_ratio)) +
   theme_bw()
 
 #hospital_admissions plot with trendline
-ggplot(clean_df, aes(x=tick, y=hospital_admissions, fill=app_user_ratio)) +
-  geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
-  geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
-  scale_fill_manual(values=c("pink1","gray10")) +
-  scale_colour_manual(values=c("pink1","gray10")) +
+ggplot(clean_df, aes(x=X.step., y=X.admissions.last.tick, fill=ratio.of.people.using.the.tracking.app)) +
+  geom_line(size=0.75,alpha=0.35,aes(group=X.run.number., color=ratio.of.people.using.the.tracking.app, linetype=ratio.of.people.using.the.tracking.app)) +
+  geom_smooth(aes(color = ratio.of.people.using.the.tracking.app, linetype=ratio.of.people.using.the.tracking.app),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
+#  scale_fill_manual(values=c("pink1","gray10")) +
+#  scale_colour_manual(values=c("pink1","gray10")) +
   xlim(0, 500) + 
-  ylim(0, 20) +
+  ylim(0, 10) +
   #aesthetics for the legend
   guides(colour = guide_legend(override.aes = list(size=5, alpha=1))) +
   xlab("Ticks [4 ticks = 1 day]") +
@@ -149,13 +150,13 @@ ggplot(clean_df, aes(x=tick, y=hospital_admissions, fill=app_user_ratio)) +
   theme_bw()
 
 #taken_hospital_beds plot with trendline
-ggplot(clean_df, aes(x=tick, y=taken_hospital_beds, fill=app_user_ratio)) +
-  geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
-  geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
-  scale_fill_manual(values=c("purple1","gray10")) +
-  scale_colour_manual(values=c("purple1","gray10")) +
+ggplot(clean_df, aes(x=X.step., y=X.taken.hospital.beds, fill=ratio.of.people.using.the.tracking.app)) +
+  geom_line(size=0.75,alpha=0.35,aes(group=X.run.number., color=ratio.of.people.using.the.tracking.app, linetype=ratio.of.people.using.the.tracking.app)) +
+  geom_smooth(aes(color = ratio.of.people.using.the.tracking.app, linetype=ratio.of.people.using.the.tracking.app),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
+#  scale_fill_manual(values=c("purple1","gray10")) +
+#  scale_colour_manual(values=c("purple1","gray10")) +
   xlim(0, 500) + 
-  ylim(0, 200) +
+  ylim(0, 100) +
   #aesthetics for the legend
   guides(colour = guide_legend(override.aes = list(size=5, alpha=1))) +
   xlab("Ticks [4 ticks = 1 day]") +
@@ -166,13 +167,13 @@ ggplot(clean_df, aes(x=tick, y=taken_hospital_beds, fill=app_user_ratio)) +
   theme_bw()
 
 #cumulative_deaths plot with trendline
-ggplot(clean_df, aes(x=tick, y=cumulative_deaths, fill=app_user_ratio)) +
-  geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
-  geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
-  scale_fill_manual(values=c("gray50","gray10")) +
-  scale_colour_manual(values=c("gray50","gray10")) +
+ggplot(clean_df, aes(x=X.step., y=X.dead.people, fill=ratio.of.people.using.the.tracking.app)) +
+  geom_line(size=0.75,alpha=0.35,aes(group=X.run.number., color=ratio.of.people.using.the.tracking.app, linetype=ratio.of.people.using.the.tracking.app)) +
+  geom_smooth(aes(color = ratio.of.people.using.the.tracking.app, linetype=ratio.of.people.using.the.tracking.app),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
+#  scale_fill_manual(values=c("gray50","gray10")) +
+#  scale_colour_manual(values=c("gray50","gray10")) +
   xlim(0, 500) + 
-  ylim(0, 50) +
+  ylim(0, 20) +
   #aesthetics for the legend
   guides(colour = guide_legend(override.aes = list(size=5, alpha=1))) +
   xlab("Ticks [4 ticks = 1 day]") +
@@ -182,14 +183,14 @@ ggplot(clean_df, aes(x=tick, y=cumulative_deaths, fill=app_user_ratio)) +
        caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)") +
   theme_bw()
 
-#tests_performed plot with trendline
-ggplot(clean_df, aes(x=tick, y=tests_performed, fill=app_user_ratio)) +
+#X.tests.performed plot with trendline
+ggplot(clean_df, aes(x=X.step., y=X.tests.performed, fill=ratio.of.people.using.the.tracking.app)) +
   # geom_point(size = 1, alpha = 0) +
-  geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
-  geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
+  geom_line(size=0.75,alpha=0.35,aes(group=X.run.number., color=ratio.of.people.using.the.tracking.app, linetype=ratio.of.people.using.the.tracking.app)) +
+  geom_smooth(aes(color = ratio.of.people.using.the.tracking.app, linetype=ratio.of.people.using.the.tracking.app),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
   # scale_colour_gradient(low = "red", high = "gray20") +
-  scale_fill_manual(values=c("blue1","gray10")) +
-  scale_colour_manual(values=c("blue1","gray10")) +
+#  scale_fill_manual(values=c("blue1","gray10")) +
+#  scale_colour_manual(values=c("blue1","gray10")) +
   xlim(0, 500) + 
   ylim(0, 15000) +
   #aesthetics for the legend
@@ -207,9 +208,9 @@ if (export_pdf) {
 }
 
 #line plot
-#ggplot(data = clean_df, mapping = aes(x = tick, y = infected, group = run_number)) + 
+#ggplot(data = clean_df, mapping = aes(x = X.step., y = X.infected, group = X.run.number.)) + 
 #  scale_colour_gradient(low = "red", high = "red4") +
-#  geom_line(size=1,alpha=1,aes(color=app_user_ratio)) + 
+#  geom_line(size=1,alpha=1,aes(color=ratio.of.people.using.the.tracking.app)) + 
 #  xlab("x-label") +
 #  ylab("y-label") + 
 #  ggtitle("some title") +
