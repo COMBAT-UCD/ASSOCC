@@ -469,7 +469,7 @@ Number
 SLIDER
 736
 869
-922
+828
 902
 density-factor-hospitals
 density-factor-hospitals
@@ -1171,7 +1171,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.312
+0.32
 0.01
 1
 NIL
@@ -1480,7 +1480,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model"
-9
+0
 
 MONITOR
 762
@@ -3531,7 +3531,7 @@ ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
 1
-0.0
+0.09
 0.01
 1
 NIL
