@@ -206,7 +206,9 @@ to-report abc
 end
 
 to-report r0
-  report #infected-by-first-infected-people / #first-infected-people
+  ifelse #first-infected-people > 0
+      [ report #infected-by-first-infected-people / #first-infected-people ]
+      [ report -1 ]
 end
 
 to export-contagion-graph-to-graphviz
