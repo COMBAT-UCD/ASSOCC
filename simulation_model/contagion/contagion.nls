@@ -147,19 +147,19 @@ to-report relative-infection-rate-of-infection-status [is]
   is = dead-infection-status
   [report 0]
   
-  if is = asymptomatic-to-rec-infection-status [report 0.29]
+  if is = asymptomatic-to-rec-infection-status [report cbt-rel-rate-of-infection-asymptomatic]
   
-  if is = pre-symptomatic-to-mild-infection-status
-  or is = symptomatic-mild-infection-status
-  or is = mild-to-rec-infection-status [report 0.48]
+  if is = pre-symptomatic-to-mild-infection-status [report cbt-rel-rate-of-infection-pre-mild	]
+  if is = symptomatic-mild-infection-status        [report cbt-rel-rate-of-infection-mild ]
+  if is = mild-to-rec-infection-status             [report cbt-rel-rate-of-infection-mild-recover ]
   
-  if is = pre-symptomatic-to-severe-infection-status or
-  is = symptomatic-severe-infection-status or
-  is = severe-to-hospital-infection-status or
-  is = severe-to-rec-infection-status or
-  is =  hospital-to-death-infection-status or
-  is = hospital-to-rec-infection-status
-  [report 1]
+  if is = pre-symptomatic-to-severe-infection-status  [report cbt-rel-rate-of-infection-pre-severe		]
+  if is = symptomatic-severe-infection-status         [report cbt-rel-rate-of-infection-severe			]
+  if is = severe-to-hospital-infection-status         [report cbt-rel-rate-of-infection-severe-hospital	]
+  if is = severe-to-rec-infection-status              [report cbt-rel-rate-of-infection-severe-recover	]
+  if is = hospital-to-death-infection-status          [report cbt-rel-rate-of-infection-hospital-death	]
+  if is = hospital-to-rec-infection-status            [report cbt-rel-rate-of-infection-hospital-recover	]
+  
   error (sentence "not implemented" infection-status)
 end
 
