@@ -15,6 +15,7 @@ globals [
   away-gathering-point
   #who-became-sick-while-travelling-locally
   import-scenario-name
+  display-text
 ]
 
 to go
@@ -700,10 +701,10 @@ terminal-to-death
 Number
 
 SLIDER
-1402
-353
-1647
-386
+2340
+487
+2585
+520
 probability-unavoidable-death
 probability-unavoidable-death
 0
@@ -715,10 +716,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1403
-189
-1668
-222
+2341
+323
+2606
+356
 probability-self-recovery-symptoms
 probability-self-recovery-symptoms
 0
@@ -730,10 +731,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1403
-288
-1672
-321
+2341
+422
+2610
+455
 probability-recorvery-if-treated
 probability-recorvery-if-treated
 0
@@ -745,10 +746,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1403
-222
-1756
-255
+2341
+356
+2694
+389
 probability-self-recovery-symptoms-old
 probability-self-recovery-symptoms-old
 0
@@ -760,10 +761,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1402
-320
-1675
-353
+2340
+454
+2613
+487
 probability-recorvery-if-treated-old
 probability-recorvery-if-treated-old
 0
@@ -775,10 +776,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1402
-385
-1665
-418
+2340
+519
+2603
+552
 probability-unavoidable-death-old
 probability-unavoidable-death-old
 0
@@ -1171,7 +1172,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.32
+0.312
 0.01
 1
 NIL
@@ -1193,10 +1194,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1403
-255
-1757
-288
+2341
+389
+2695
+422
 factor-reduction-probability-transmission-young
 factor-reduction-probability-transmission-young
 0
@@ -3909,10 +3910,10 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-1320
-215
-1402
-272
+2258
+349
+2340
+406
 ASSOCC\nincremental\nmodel\n(deprecated)
 11
 15.0
@@ -4154,6 +4155,27 @@ PENS
 "Workers" 1.0 0 -16777216 true "" "plot standard-deviation [my-amount-of-capital] of workers"
 "Students" 1.0 0 -7500403 true "" "plot standard-deviation [my-amount-of-capital] of students"
 "Retired" 1.0 0 -2674135 true "" "plot standard-deviation [my-amount-of-capital] of retireds"
+
+TEXTBOX
+1248
+223
+1398
+241
+COMBAT Configuration
+11
+15.0
+1
+
+INPUTBOX
+1247
+244
+1346
+304
+#initially-infected
+3.0
+1
+0
+Number
 
 @#$#@#$#@
 ## WHAT IS IT?

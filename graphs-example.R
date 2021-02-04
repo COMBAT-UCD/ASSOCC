@@ -14,6 +14,7 @@ library(plotly)
 library(tidyr)
 
 workdirec <- "E:/Repositories/Combat/ASSOCC/"
+setwd(workdirec)
 
 filesPath <- "E:/Repositories/Combat/ASSOCC/results/"
 filesNames <- c("S6.csv")
